@@ -1,6 +1,7 @@
 package io.github.tiagorgt.vertx.api.repository;
 
 import io.github.tiagorgt.vertx.api.entity.Libro;
+import io.github.tiagorgt.vertx.api.entity.Tema;
 import io.netty.util.internal.StringUtil;
 import io.vertx.core.json.JsonObject;
 
@@ -10,19 +11,19 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
 
-public class LibroDao {
-    private static LibroDao instance;
+public class TemaDao {
+    private static TemaDao instance;
     protected EntityManager entityManager;
 
-    public static LibroDao getInstance() {
+    public static TemaDao getInstance() {
         if (instance == null) {
-            instance = new LibroDao();
+            instance = new TemaDao();
         }
 
         return instance;
     }
 
-    private LibroDao() {
+    private TemaDao() {
         entityManager = getEntityManager();
     }
 
@@ -35,45 +36,34 @@ public class LibroDao {
         return entityManager;
     }
 
-    public Libro getById(String id_libro) {
-        Object result = entityManager.find(Libro.class, id_libro);
+    public Tema getById(String id_tema) {
+        Object result = entityManager.find(Tema.class, id_tema);
         if (result != null) {
-            return (Libro) result;
+            return (Tema) result;
         } else {
             return null;
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public List<Libro> findAll() {
-        return entityManager.createQuery("FROM " + Libro.class.getName()).getResultList();
+    public List<Tema> findAll() {
+        return entityManager.createQuery("FROM " + Tema.class.getName()).getResultList();
     }
 
-    public List<Libro> getByFilter(JsonObject filter) {
+    public List<Tema> getByFilter(JsonObject filter) {
         Query query = entityManager.createQuery(sqlFilter(filter));
         parametersFilter(filter, query);
-        List<Libro> result = query.getResultList();
+        List<Tema> result = query.getResultList();
 
         return result;
     }
 
     private String sqlFilter(JsonObject filter) {
-        String sqlQuery = "SELECT l FROM Libro l";
+        String sqlQuery = "SELECT t FROM Tema t";
         String preParameter = " WHERE";
         String sqlParameter = "";
 
-        if (!StringUtil.isNullOrEmpty(filter.getString("titulo"))) {
-            sqlParameter += preParameter + " upper(l.titulo) LIKE upper(:titulo)";
-            preParameter = " OR";
-        }
-
-        if (!StringUtil.isNullOrEmpty(filter.getString("autor"))) {
-            sqlParameter += preParameter + " upper(l.autor) LIKE upper(:autor)";
-            preParameter = " OR";
-        }
-
-        if (!StringUtil.isNullOrEmpty(filter.getString("edicion"))) {
-            sqlParameter += preParameter + " upper(l.edicion) LIKE upper(:edicion)";
+        if (!StringUtil.isNullOrEmpty(filter.getString("descripcion"))) {
+            sqlParameter += preParameter + " upper(t.descripcion) LIKE upper(:descripcion)";
             preParameter = " OR";
         }
 
@@ -81,27 +71,17 @@ public class LibroDao {
     }
 
     private void parametersFilter(JsonObject filter, Query query) {
-        if (!StringUtil.isNullOrEmpty(filter.getString("titulo"))) {
-            String likeNameParam = "%" + filter.getString("titulo") + "%";
-            query.setParameter("titulo", likeNameParam);
-        }
-
-        if (!StringUtil.isNullOrEmpty(filter.getString("autor"))) {
-            String likeNameParam = "%" + filter.getString("autor") + "%";
-            query.setParameter("autor", likeNameParam);
-        }
-
-        if (!StringUtil.isNullOrEmpty(filter.getString("edicion"))) {
-            String likeNameParam = "%" + filter.getString("edicion") + "%";
-            query.setParameter("edicion", likeNameParam);
+        if (!StringUtil.isNullOrEmpty(filter.getString("descripcion"))) {
+            String likeNameParam = "%" + filter.getString("descripcion") + "%";
+            query.setParameter("descripcion", likeNameParam);
         }
 
     }
 
-    public void persist(Libro libro) {
+    public void persist(Tema tema) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(libro);
+            entityManager.persist(tema);
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -109,10 +89,10 @@ public class LibroDao {
         }
     }
 
-    public void merge(Libro libro) {
+    public void merge(Tema tema) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.merge(libro);
+            entityManager.merge(tema);
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -120,11 +100,11 @@ public class LibroDao {
         }
     }
 
-    public void remove(Libro libro) {
+    public void remove(Tema tema) {
         try {
             entityManager.getTransaction().begin();
-            libro = entityManager.find(Libro.class, libro.getId_libro());
-            entityManager.remove(libro);
+            tema = entityManager.find(Tema.class, tema.getId_tema());
+            entityManager.remove(tema);
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -132,10 +112,10 @@ public class LibroDao {
         }
     }
 
-    public void removeById(String id_libro) {
+    public void removeById(String id_tema) {
         try {
-            Libro libro = getById(id_libro);
-            remove(libro);
+            Tema tema = getById(id_tema);
+            remove(tema);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
