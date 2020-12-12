@@ -1,4 +1,4 @@
-package io.github.tiagorgt.vertx.api.service;
+/*package io.github.tiagorgt.vertx.api.service;
 
 import io.github.tiagorgt.vertx.api.entity.Position;
 import io.github.tiagorgt.vertx.api.repository.PositionDao;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by tiago on 07/10/2017.
  */
-public class PositionService {
+/*public class PositionService {
     private PositionDao positionDao = PositionDao.getInstance();
 
     public void list(Handler<AsyncResult<List<Position>>> handler){
@@ -26,3 +26,4 @@ public class PositionService {
         }
     }
 }
+*/

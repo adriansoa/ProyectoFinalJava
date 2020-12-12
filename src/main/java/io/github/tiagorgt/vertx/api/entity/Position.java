@@ -1,4 +1,6 @@
+/*
 package io.github.tiagorgt.vertx.api.entity;
+
 
 import io.vertx.core.json.JsonObject;
 
@@ -7,7 +9,9 @@ import java.io.Serializable;
 
 /**
  * Created by tiago on 07/10/2017.
- */
+*/
+ /*
+
 @Entity
 @Table(name = "funcao_usuario_externo")
 public class Position implements Serializable {
@@ -40,3 +44,4 @@ public class Position implements Serializable {
         return String.valueOf(JsonObject.mapFrom(this));
     }
 }
+ */

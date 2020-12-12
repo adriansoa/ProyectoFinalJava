@@ -1,4 +1,4 @@
-package io.github.tiagorgt.vertx.api.repository;
+/*package io.github.tiagorgt.vertx.api.repository;
 
 import io.github.tiagorgt.vertx.api.entity.Position;
 import javax.persistence.EntityManager;
@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Created by tiago on 07/10/2017.
  */
+/*
 public class PositionDao {
     private static PositionDao instance;
     protected EntityManager entityManager;
@@ -43,3 +44,4 @@ public class PositionDao {
         return entityManager.createQuery("FROM " + Position.class.getName()).getResultList();
     }
 }
+*/

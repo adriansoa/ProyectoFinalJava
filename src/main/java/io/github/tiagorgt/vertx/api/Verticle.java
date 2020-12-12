@@ -49,7 +49,7 @@ public class Verticle extends AbstractVerticle {
         router.route().handler(BodyHandler.create()); // <3>
 
         // routes
-        router.get("/position").handler(this::getPositions);
+        // router.get("/position").handler(this::getPositions);
         router.get("/user").handler(this::getUsers);
         router.get("/libro").handler(this::getLibro);
         router.get("/materia").handler(this::getMateria);
@@ -58,6 +58,12 @@ public class Verticle extends AbstractVerticle {
         router.get("/facultad").handler(this::getFacultad);
         router.get("/alumno").handler(this::getAlumno);
         router.get("/user/:id").handler(this::getById);
+        router.get("/libro/:id").handler(this::getById1);
+        router.get("/materia/:id").handler(this::getById2);
+        router.get("/autor/:id").handler(this::getById3);
+        router.get("/tema/:id").handler(this::getById4);
+        router.get("/facultad/:id").handler(this::getById5);
+        router.get("/alumno/:id").handler(this::getById6);
         router.post("/user").handler(this::save);
         router.post("/libro").handler(this::save1);
         router.post("/materia").handler(this::save2);
@@ -80,6 +86,12 @@ public class Verticle extends AbstractVerticle {
         router.delete("/facultad/:id").handler(this::remove5);
         router.delete("/alumno/:id").handler(this::remove6);
         router.post("/user/filter").handler(this::getUsersByFilter);
+        router.post("/libro/filter").handler(this::getLibrosByFilter1);
+        router.post("/materia/filter").handler(this::getMateriasByFilter2);
+        router.post("/autor/filter").handler(this::getAutoresByFilter3);
+        router.post("/tema/filter").handler(this::getTemasByFilter4);
+        router.post("/facultad/filter").handler(this::getFacultadesByFilter5);
+        router.post("/alumno/filter").handler(this::getAlumnosByFilter6);
 
         vertx.createHttpServer() // <4>
                 .requestHandler(router::accept)
@@ -91,7 +103,7 @@ public class Verticle extends AbstractVerticle {
                 });
     }
 
-    PositionService positionService = new PositionService();
+    // PositionService positionService = new PositionService();
     UserService userService = new UserService();
     LibroService libroService = new LibroService();
     MateriaService materiaService = new MateriaService();
@@ -101,7 +113,7 @@ public class Verticle extends AbstractVerticle {
     AlumnoService alumnoService = new AlumnoService();
 
 
-    private void getPositions(RoutingContext context) {
+    /* private void getPositions(RoutingContext context) {
         positionService.list(ar -> {
             if (ar.succeeded()) {
                 sendSuccess(Json.encodePrettily(ar.result()), context.response());
@@ -109,7 +121,7 @@ public class Verticle extends AbstractVerticle {
                 sendError(ar.cause().getMessage(), context.response());
             }
         });
-    }
+    }*/
 
     private void getUsers(RoutingContext context) {
         userService.list(ar -> {
@@ -191,8 +203,152 @@ public class Verticle extends AbstractVerticle {
         });
     }
 
+    private void getLibrosByFilter1(RoutingContext context){
+        libroService.getByFilter(context.getBodyAsJson(), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(Json.encodePrettily(ar.result()), context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getMateriasByFilter2(RoutingContext context){
+        materiaService.getByFilter(context.getBodyAsJson(), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(Json.encodePrettily(ar.result()), context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getAutoresByFilter3(RoutingContext context){
+        autorService.getByFilter(context.getBodyAsJson(), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(Json.encodePrettily(ar.result()), context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getTemasByFilter4(RoutingContext context){
+        temaService.getByFilter(context.getBodyAsJson(), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(Json.encodePrettily(ar.result()), context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getFacultadesByFilter5(RoutingContext context){
+        facultadService.getByFilter(context.getBodyAsJson(), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(Json.encodePrettily(ar.result()), context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getAlumnosByFilter6(RoutingContext context){
+        alumnoService.getByFilter(context.getBodyAsJson(), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(Json.encodePrettily(ar.result()), context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
     private void getById(RoutingContext context) {
         userService.getById(context.request().getParam("id"), ar -> {
+            if (ar.succeeded()) {
+                if (ar.result() != null){
+                    sendSuccess(Json.encodePrettily(ar.result()), context.response());
+                } else {
+                    sendSuccess(context.response());
+                }
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getById1(RoutingContext context) {
+        libroService.getById(context.request().getParam("id"), ar -> {
+            if (ar.succeeded()) {
+                if (ar.result() != null){
+                    sendSuccess(Json.encodePrettily(ar.result()), context.response());
+                } else {
+                    sendSuccess(context.response());
+                }
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getById2(RoutingContext context) {
+        materiaService.getById(context.request().getParam("id"), ar -> {
+            if (ar.succeeded()) {
+                if (ar.result() != null){
+                    sendSuccess(Json.encodePrettily(ar.result()), context.response());
+                } else {
+                    sendSuccess(context.response());
+                }
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getById3(RoutingContext context) {
+        autorService.getById(context.request().getParam("id"), ar -> {
+            if (ar.succeeded()) {
+                if (ar.result() != null){
+                    sendSuccess(Json.encodePrettily(ar.result()), context.response());
+                } else {
+                    sendSuccess(context.response());
+                }
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getById4(RoutingContext context) {
+        temaService.getById(context.request().getParam("id"), ar -> {
+            if (ar.succeeded()) {
+                if (ar.result() != null){
+                    sendSuccess(Json.encodePrettily(ar.result()), context.response());
+                } else {
+                    sendSuccess(context.response());
+                }
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getById5(RoutingContext context) {
+        facultadService.getById(context.request().getParam("id"), ar -> {
+            if (ar.succeeded()) {
+                if (ar.result() != null){
+                    sendSuccess(Json.encodePrettily(ar.result()), context.response());
+                } else {
+                    sendSuccess(context.response());
+                }
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getById6(RoutingContext context) {
+        alumnoService.getById(context.request().getParam("id"), ar -> {
             if (ar.succeeded()) {
                 if (ar.result() != null){
                     sendSuccess(Json.encodePrettily(ar.result()), context.response());
