@@ -16,4 +16,19 @@ public class Facultad implements Serializable{
     private String descripcion;
 
 
+    public String getId_facultad() {
+        return id_facultad;
+    }
+
+    public void setId_facultad(String id_facultad) {
+        this.id_facultad = id_facultad;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

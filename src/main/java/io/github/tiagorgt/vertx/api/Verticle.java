@@ -55,22 +55,26 @@ public class Verticle extends AbstractVerticle {
         router.get("/materia").handler(this::getMateria);
         router.get("/autor").handler(this::getAutor);
         router.get("/tema").handler(this::getTema);
+        router.get("/facultad").handler(this::getFacultad);
         router.get("/user/:id").handler(this::getById);
         router.post("/user").handler(this::save);
         router.post("/libro").handler(this::save1);
         router.post("/materia").handler(this::save2);
         router.post("/autor").handler(this::save3);
         router.post("/tema").handler(this::save4);
+        router.post("/facultad").handler(this::save5);
         router.put("/user").handler(this::update);
         router.put("/libro").handler(this::update1);
         router.put("/materia").handler(this::update2);
         router.put("/autor").handler(this::update3);
         router.put("/tema").handler(this::update4);
+        router.put("/facultad").handler(this::update5);
         router.delete("/user/:id").handler(this::remove);
         router.delete("/libro/:id").handler(this::remove1);
         router.delete("/materia/:id").handler(this::remove2);
         router.delete("/autor/:id").handler(this::remove3);
         router.delete("/tema/:id").handler(this::remove4);
+        router.delete("/facultad/:id").handler(this::remove5);
         router.post("/user/filter").handler(this::getUsersByFilter);
 
         vertx.createHttpServer() // <4>
@@ -89,6 +93,7 @@ public class Verticle extends AbstractVerticle {
     MateriaService materiaService = new MateriaService();
     AutorService autorService = new AutorService();
     TemaService temaService = new TemaService();
+    FacultadService facultadService = new FacultadService();
 
     private void getPositions(RoutingContext context) {
         positionService.list(ar -> {
@@ -142,6 +147,16 @@ public class Verticle extends AbstractVerticle {
 
     private void getTema(RoutingContext context) {
         temaService.list(ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(Json.encodePrettily(ar.result()), context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getFacultad(RoutingContext context) {
+        facultadService.list(ar -> {
             if (ar.succeeded()) {
                 sendSuccess(Json.encodePrettily(ar.result()), context.response());
             } else {
@@ -224,6 +239,16 @@ public class Verticle extends AbstractVerticle {
         });
     }
 
+    private void save5(RoutingContext context) {
+        facultadService.save(Json.decodeValue(context.getBodyAsString(), Facultad.class), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
     private void update(RoutingContext context) {
         userService.update(Json.decodeValue(context.getBodyAsString(), User.class), ar -> {
             if (ar.succeeded()) {
@@ -266,6 +291,16 @@ public class Verticle extends AbstractVerticle {
 
     private void update4(RoutingContext context) {
         temaService.update(Json.decodeValue(context.getBodyAsString(), Tema.class), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void update5(RoutingContext context) {
+        facultadService.update(Json.decodeValue(context.getBodyAsString(), Facultad.class), ar -> {
             if (ar.succeeded()) {
                 sendSuccess(context.response());
             } else {
@@ -323,6 +358,17 @@ public class Verticle extends AbstractVerticle {
             }
         });
     }
+
+    private void remove5(RoutingContext context) {
+        facultadService.remove(context.request().getParam("id"), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
 
     private void sendError(String errorMessage, HttpServerResponse response) {
         JsonObject jo = new JsonObject();
