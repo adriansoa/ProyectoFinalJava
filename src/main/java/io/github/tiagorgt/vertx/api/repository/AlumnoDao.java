@@ -2,7 +2,6 @@ package io.github.tiagorgt.vertx.api.repository;
 
 
 import io.github.tiagorgt.vertx.api.entity.Alumno;
-import io.github.tiagorgt.vertx.api.entity.Autor;
 import io.netty.util.internal.StringUtil;
 import io.vertx.core.json.JsonObject;
 

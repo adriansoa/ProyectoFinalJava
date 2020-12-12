@@ -9,9 +9,7 @@ import io.vertx.core.json.JsonObject;
 
 import java.util.List;
 
-/**
- * Created by tiago on 07/10/2017.
- */
+
 public class UserService {
     private UserDao userDao = UserDao.getInstance();
 

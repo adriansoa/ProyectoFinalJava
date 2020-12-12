@@ -1,11 +1,8 @@
 package io.github.tiagorgt.vertx.api.service;
 
-import io.github.tiagorgt.vertx.api.entity.Libro;
+
 import io.github.tiagorgt.vertx.api.entity.Tema;
-import io.github.tiagorgt.vertx.api.entity.User;
-import io.github.tiagorgt.vertx.api.repository.LibroDao;
 import io.github.tiagorgt.vertx.api.repository.TemaDao;
-import io.github.tiagorgt.vertx.api.repository.UserDao;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;

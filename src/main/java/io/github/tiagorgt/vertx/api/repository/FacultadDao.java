@@ -2,7 +2,6 @@ package io.github.tiagorgt.vertx.api.repository;
 
 
 import io.github.tiagorgt.vertx.api.entity.Facultad;
-import io.github.tiagorgt.vertx.api.entity.Libro;
 import io.netty.util.internal.StringUtil;
 import io.vertx.core.json.JsonObject;
 import org.graalvm.compiler.nodes.extended.PluginFactory_NullCheckNode;

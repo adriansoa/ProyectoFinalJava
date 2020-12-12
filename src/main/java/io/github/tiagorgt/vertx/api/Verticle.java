@@ -1,6 +1,4 @@
-/**
- * Created by tiago on 07/10/2017.
- */
+
 package io.github.tiagorgt.vertx.api;
 
 import io.github.tiagorgt.vertx.api.entity.*;
@@ -49,7 +47,7 @@ public class Verticle extends AbstractVerticle {
         router.route().handler(BodyHandler.create()); // <3>
 
         // routes
-        // router.get("/position").handler(this::getPositions);
+
         router.get("/user").handler(this::getUsers);
         router.get("/libro").handler(this::getLibro);
         router.get("/materia").handler(this::getMateria);
@@ -103,7 +101,7 @@ public class Verticle extends AbstractVerticle {
                 });
     }
 
-    // PositionService positionService = new PositionService();
+
     UserService userService = new UserService();
     LibroService libroService = new LibroService();
     MateriaService materiaService = new MateriaService();
@@ -113,15 +111,6 @@ public class Verticle extends AbstractVerticle {
     AlumnoService alumnoService = new AlumnoService();
 
 
-    /* private void getPositions(RoutingContext context) {
-        positionService.list(ar -> {
-            if (ar.succeeded()) {
-                sendSuccess(Json.encodePrettily(ar.result()), context.response());
-            } else {
-                sendError(ar.cause().getMessage(), context.response());
-            }
-        });
-    }*/
 
     private void getUsers(RoutingContext context) {
         userService.list(ar -> {

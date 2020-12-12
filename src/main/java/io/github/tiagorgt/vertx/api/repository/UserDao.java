@@ -10,9 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
 
-/**
- * Created by tiago on 07/10/2017.
- */
+
 public class UserDao {
     private static UserDao instance;
     protected EntityManager entityManager;
