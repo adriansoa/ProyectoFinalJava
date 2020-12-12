@@ -1,27 +1,27 @@
-package io.github.tiagorgt.vertx.api.entity;
+package io.vertx.api.entity;
+
 import org.hibernate.annotations.Columns;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "facultad")
-public class Facultad implements Serializable{
+@Table(name = "tema")
+public class Tema implements Serializable {
 
     @Id
-    @Column(unique = true, name = "id_facultad")
-    private String id_facultad;
+    @Column(unique = true, name = "id_tema")
+    private String id_tema;
 
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-
-    public String getId_facultad() {
-        return id_facultad;
+    public String getId_tema() {
+        return id_tema;
     }
 
-    public void setId_facultad(String id_facultad) {
-        this.id_facultad = id_facultad;
+    public void setId_tema(String id_tema) {
+        this.id_tema = id_tema;
     }
 
     public String getDescripcion() {

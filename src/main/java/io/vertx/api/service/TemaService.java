@@ -1,8 +1,8 @@
-package io.github.tiagorgt.vertx.api.service;
+package io.vertx.api.service;
 
 
-import io.github.tiagorgt.vertx.api.entity.Tema;
-import io.github.tiagorgt.vertx.api.repository.TemaDao;
+import io.vertx.api.entity.Tema;
+import io.vertx.api.repository.TemaDao;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;

@@ -1,27 +1,23 @@
 
-package io.github.tiagorgt.vertx.api;
+package io.vertx.api;
 
-import io.github.tiagorgt.vertx.api.entity.*;
-import io.github.tiagorgt.vertx.api.service.*;
+import io.vertx.api.entity.*;
+import io.vertx.api.service.*;
+import io.vertx.api.entity.*;
+import io.vertx.api.service.*;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 public class Verticle extends AbstractVerticle {
 

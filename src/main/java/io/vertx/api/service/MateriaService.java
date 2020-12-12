@@ -1,8 +1,8 @@
-package io.github.tiagorgt.vertx.api.service;
+package io.vertx.api.service;
 
 
-import io.github.tiagorgt.vertx.api.entity.Materia;
-import io.github.tiagorgt.vertx.api.repository.MateriaDao;
+import io.vertx.api.entity.Materia;
+import io.vertx.api.repository.MateriaDao;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;

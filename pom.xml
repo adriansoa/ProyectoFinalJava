@@ -67,7 +67,7 @@
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
                                         <Main-Class>io.vertx.core.Launcher</Main-Class>
-                                        <Main-Verticle>io.github.tiagorgt.vertx.api.Verticle</Main-Verticle>
+                                        <Main-Verticle>io.vertx.api.Verticle</Main-Verticle>
                                     </manifestEntries>
                                 </transformer>
                             </transformers>

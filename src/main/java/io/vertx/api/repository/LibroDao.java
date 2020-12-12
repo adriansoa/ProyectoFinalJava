@@ -1,6 +1,6 @@
-package io.github.tiagorgt.vertx.api.repository;
+package io.vertx.api.repository;
 
-import io.github.tiagorgt.vertx.api.entity.Libro;
+import io.vertx.api.entity.Libro;
 import io.netty.util.internal.StringUtil;
 import io.vertx.core.json.JsonObject;
 

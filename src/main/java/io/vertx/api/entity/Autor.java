@@ -1,4 +1,4 @@
-package io.github.tiagorgt.vertx.api.entity;
+package io.vertx.api.entity;
 
 import org.hibernate.annotations.Columns;
 

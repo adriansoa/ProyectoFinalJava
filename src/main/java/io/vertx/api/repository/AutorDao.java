@@ -1,6 +1,6 @@
-package io.github.tiagorgt.vertx.api.repository;
+package io.vertx.api.repository;
 
-import io.github.tiagorgt.vertx.api.entity.User;
+import io.vertx.api.entity.Autor;
 import io.netty.util.internal.StringUtil;
 import io.vertx.core.json.JsonObject;
 
@@ -11,19 +11,19 @@ import javax.persistence.Query;
 import java.util.List;
 
 
-public class UserDao {
-    private static UserDao instance;
+public class AutorDao {
+
+    private static AutorDao instance;
     protected EntityManager entityManager;
 
-    public static UserDao getInstance() {
+    public static AutorDao getInstance() {
         if (instance == null) {
-            instance = new UserDao();
+            instance = new AutorDao();
         }
 
         return instance;
-    }
-
-    private UserDao() {
+}
+    private AutorDao() {
         entityManager = getEntityManager();
     }
 
@@ -36,45 +36,45 @@ public class UserDao {
         return entityManager;
     }
 
-    public User getById(String cpf) {
-        Object result = entityManager.find(User.class, cpf);
+    public Autor getById(String id_autor) {
+        Object result = entityManager.find(Autor.class,id_autor );
         if (result != null) {
-            return (User) result;
+            return (Autor) result;
         } else {
             return null;
         }
     }
 
     @SuppressWarnings("unchecked")
-    public List<User> findAll() {
-        return entityManager.createQuery("FROM " + User.class.getName()).getResultList();
+    public List<Autor> findAll() {
+        return entityManager.createQuery("FROM " + Autor.class.getName()).getResultList();
     }
 
-    public List<User> getByFilter(JsonObject filter) {
+    public List<Autor> getByFilter(JsonObject filter) {
         Query query = entityManager.createQuery(sqlFilter(filter));
         parametersFilter(filter, query);
-        List<User> result = query.getResultList();
+        List<Autor> result = query.getResultList();
 
         return result;
     }
 
     private String sqlFilter(JsonObject filter) {
-        String sqlQuery = "SELECT u FROM User u";
+        String sqlQuery = "SELECT l FROM Autor l";
         String preParameter = " WHERE";
         String sqlParameter = "";
 
-        if (!StringUtil.isNullOrEmpty(filter.getString("name"))) {
-            sqlParameter += preParameter + " upper(u.name) LIKE upper(:name)";
+        if (!StringUtil.isNullOrEmpty(filter.getString("nombre"))) {
+            sqlParameter += preParameter + " upper(l.nombre) LIKE upper(:nombre)";
             preParameter = " OR";
         }
 
-        if (!StringUtil.isNullOrEmpty(filter.getString("status")) && !filter.getString("status").equals("AI")) {
-            sqlParameter += preParameter + " u.status = :status";
+        if (!StringUtil.isNullOrEmpty(filter.getString("telefono"))) {
+            sqlParameter += preParameter + " upper(l.telefono) LIKE upper(:telefono)";
             preParameter = " OR";
         }
 
-        if (!StringUtil.isNullOrEmpty(String.valueOf(filter.getValue("profile"))) && !String.valueOf(filter.getValue("profile")).equals("99")) {
-            sqlParameter += preParameter + " u.profile = :profile";
+        if (!StringUtil.isNullOrEmpty(filter.getString("email"))) {
+            sqlParameter += preParameter + " upper(l.email) LIKE upper(:email)";
             preParameter = " OR";
         }
 
@@ -82,24 +82,27 @@ public class UserDao {
     }
 
     private void parametersFilter(JsonObject filter, Query query) {
-        if (!StringUtil.isNullOrEmpty(filter.getString("name"))) {
-            String likeNameParam = "%" + filter.getString("name") + "%";
-            query.setParameter("name", likeNameParam);
+        if (!StringUtil.isNullOrEmpty(filter.getString("nombre"))) {
+            String likeNameParam = "%" + filter.getString("nombre") + "%";
+            query.setParameter("nombre", likeNameParam);
         }
 
-        if (!StringUtil.isNullOrEmpty(filter.getString("status")) && !filter.getString("status").equals("AI")) {
-            query.setParameter("status", filter.getString("status"));
+        if (!StringUtil.isNullOrEmpty(filter.getString("telefono"))) {
+            String likeNameParam = "%" + filter.getString("telefono") + "%";
+            query.setParameter("telefono", likeNameParam);
         }
 
-        if (!StringUtil.isNullOrEmpty(String.valueOf(filter.getValue("profile"))) && !String.valueOf(filter.getValue("profile")).equals("99")) {
-            query.setParameter("profile", filter.getInteger("profile"));
+        if (!StringUtil.isNullOrEmpty(filter.getString("email"))) {
+            String likeNameParam = "%" + filter.getString("email") + "%";
+            query.setParameter("email", likeNameParam);
         }
+
     }
 
-    public void persist(User user) {
+    public void persist(Autor autor) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(user);
+            entityManager.persist(autor);
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -107,10 +110,10 @@ public class UserDao {
         }
     }
 
-    public void merge(User user) {
+    public void merge(Autor autor) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.merge(user);
+            entityManager.merge(autor);
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -118,24 +121,25 @@ public class UserDao {
         }
     }
 
-    public void remove(User user) {
+    public void remove(Autor autor) {
         try {
             entityManager.getTransaction().begin();
-            user = entityManager.find(User.class, user.getCpf());
-            entityManager.remove(user);
+            autor = entityManager.find(Autor.class, autor.getId_autor());
+            entityManager.remove(autor);
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
             entityManager.getTransaction().rollback();
         }
     }
-
-    public void removeById(String cpf) {
+    public void removeById(String id_autor) {
         try {
-            User user = getById(cpf);
-            remove(user);
+            Autor autor = getById(id_autor);
+            remove(autor);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 }
+
+

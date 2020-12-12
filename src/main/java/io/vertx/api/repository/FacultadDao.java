@@ -1,10 +1,9 @@
-package io.github.tiagorgt.vertx.api.repository;
+package io.vertx.api.repository;
 
 
-import io.github.tiagorgt.vertx.api.entity.Facultad;
+import io.vertx.api.entity.Facultad;
 import io.netty.util.internal.StringUtil;
 import io.vertx.core.json.JsonObject;
-import org.graalvm.compiler.nodes.extended.PluginFactory_NullCheckNode;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

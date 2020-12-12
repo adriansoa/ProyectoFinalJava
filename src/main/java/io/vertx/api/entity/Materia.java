@@ -1,4 +1,4 @@
-package io.github.tiagorgt.vertx.api.entity;
+package io.vertx.api.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

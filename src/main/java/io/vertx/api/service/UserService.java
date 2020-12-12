@@ -1,7 +1,7 @@
-package io.github.tiagorgt.vertx.api.service;
+package io.vertx.api.service;
 
-import io.github.tiagorgt.vertx.api.entity.User;
-import io.github.tiagorgt.vertx.api.repository.UserDao;
+import io.vertx.api.entity.User;
+import io.vertx.api.repository.UserDao;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
