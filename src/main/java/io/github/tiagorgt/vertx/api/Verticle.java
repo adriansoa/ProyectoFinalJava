@@ -5,10 +5,10 @@ package io.github.tiagorgt.vertx.api;
 
 import io.github.tiagorgt.vertx.api.entity.Materia;
 import io.github.tiagorgt.vertx.api.entity.Libro;
+import io.github.tiagorgt.vertx.api.entity.Autor;
 import io.github.tiagorgt.vertx.api.entity.Position;
 import io.github.tiagorgt.vertx.api.entity.User;
 import io.github.tiagorgt.vertx.api.service.LibroService;
-import io.github.tiagorgt.vertx.api.service.MateriaService;
 import io.github.tiagorgt.vertx.api.service.PositionService;
 import io.github.tiagorgt.vertx.api.service.UserService;
 import io.vertx.core.AbstractVerticle;
@@ -59,16 +59,20 @@ public class Verticle extends AbstractVerticle {
         router.get("/user").handler(this::getUsers);
         router.get("/libro").handler(this::getLibro);
         router.get("/materia").handler(this::getMateria);
+        router.get("/autor").handler(this::getAutor);
         router.get("/user/:id").handler(this::getById);
         router.post("/user").handler(this::save);
         router.post("/libro").handler(this::save1);
         router.post("/materia").handler(this::save2);
+        router.post("/autor").handler(this::save3);
         router.put("/user").handler(this::update);
         router.put("/libro").handler(this::update1);
         router.put("/materia").handler(this::update2);
+        router.put("/autor").handler(this::update3);
         router.delete("/user/:id").handler(this::remove);
         router.delete("/libro/:id").handler(this::remove1);
         router.delete("/materia/:id").handler(this::remove2);
+        router.delete("/autor/:id").handler(this::remove3);
         router.post("/user/filter").handler(this::getUsersByFilter);
 
         vertx.createHttpServer() // <4>
@@ -85,6 +89,7 @@ public class Verticle extends AbstractVerticle {
     UserService userService = new UserService();
     LibroService libroService = new LibroService();
     MateriaService materiaService = new MateriaService();
+    AutorService autorService = new AutorService();
 
     private void getPositions(RoutingContext context) {
         positionService.list(ar -> {
@@ -118,6 +123,16 @@ public class Verticle extends AbstractVerticle {
 
     private void getMateria(RoutingContext context) {
         materiaService.list(ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(Json.encodePrettily(ar.result()), context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void getAutor(RoutingContext context) {
+        autorService.list(ar -> {
             if (ar.succeeded()) {
                 sendSuccess(Json.encodePrettily(ar.result()), context.response());
             } else {
@@ -180,6 +195,16 @@ public class Verticle extends AbstractVerticle {
         });
     }
 
+    private void save3(RoutingContext context) {
+        autorService.save(Json.decodeValue(context.getBodyAsString(), Autor.class), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
     private void update(RoutingContext context) {
         userService.update(Json.decodeValue(context.getBodyAsString(), User.class), ar -> {
             if (ar.succeeded()) {
@@ -210,6 +235,16 @@ public class Verticle extends AbstractVerticle {
         });
     }
 
+    private void update3(RoutingContext context) {
+        autorService.update(Json.decodeValue(context.getBodyAsString(), Autor.class), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
     private void remove(RoutingContext context) {
         userService.remove(context.request().getParam("id"), ar -> {
             if (ar.succeeded()) {
@@ -232,6 +267,16 @@ public class Verticle extends AbstractVerticle {
 
     private void remove2(RoutingContext context) {
         materiaService.remove(context.request().getParam("id"), ar -> {
+            if (ar.succeeded()) {
+                sendSuccess(context.response());
+            } else {
+                sendError(ar.cause().getMessage(), context.response());
+            }
+        });
+    }
+
+    private void remove3(RoutingContext context) {
+        autorService.remove(context.request().getParam("id"), ar -> {
             if (ar.succeeded()) {
                 sendSuccess(context.response());
             } else {
