@@ -66,6 +66,10 @@ public class MateriaDao {
             sqlParameter += preParameter + " upper(m.nombre) LIKE upper(:nombre)";
             preParameter = " OR";
         }
+        if (!StringUtil.isNullOrEmpty(filter.getString("cant_creditos"))) {
+            sqlParameter += preParameter + " upper(m.cant_creditos) LIKE upper(:cant_creditos)";
+            preParameter = " OR";
+        }
 
         if (!StringUtil.isNullOrEmpty(filter.getString("tipo_materia"))) {
             sqlParameter += preParameter + " upper(m.tipo_materia) LIKE upper(:tipo_materia)";

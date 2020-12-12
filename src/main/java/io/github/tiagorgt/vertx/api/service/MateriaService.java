@@ -40,7 +40,7 @@ public class MateriaService {
         }
     }
 
-    public void getById(int id_materia, Handler<AsyncResult<Materia>> handler) {
+    public void getById(String id_materia, Handler<AsyncResult<Materia>> handler) {
         Future<Materia> future = Future.future();
         future.setHandler(handler);
 
