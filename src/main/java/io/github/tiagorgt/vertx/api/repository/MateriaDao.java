@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.util.List;
 
 public class MateriaDao {
@@ -35,7 +36,7 @@ public class MateriaDao {
         return entityManager;
     }
 
-    public Materia getById(int id_materia) {
+    public Materia getById(String id_materia) {
         Object result = entityManager.find(Materia.class, id_materia);
         if (result != null) {
             return (Materia) result;
@@ -121,7 +122,7 @@ public class MateriaDao {
         }
     }
 
-    public void removeById(int id_materia) {
+    public void removeById(String id_materia) {
         try {
             Materia materia = getById(id_materia);
             remove(materia);

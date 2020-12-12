@@ -11,6 +11,8 @@ import io.github.tiagorgt.vertx.api.entity.User;
 import io.github.tiagorgt.vertx.api.service.LibroService;
 import io.github.tiagorgt.vertx.api.service.PositionService;
 import io.github.tiagorgt.vertx.api.service.UserService;
+import io.github.tiagorgt.vertx.api.service.MateriaService;
+import io.github.tiagorgt.vertx.api.service.AutorService;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpMethod;

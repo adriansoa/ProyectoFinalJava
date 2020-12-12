@@ -1,7 +1,5 @@
 package io.github.tiagorgt.vertx.api.entity;
 
-import org.hibernate.annotations.Columns;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,7 +8,7 @@ import java.io.Serializable;
 public class Materia implements Serializable{
     @Id
     @Column(unique = true, name = "id_materia")
-    private int id_materia;
+    private String id_materia;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -21,11 +19,11 @@ public class Materia implements Serializable{
     @Column(name = "tipo_materia", nullable = false)
     private String tipo_materia;
 
-    public int getId_materia() {
+    public String getId_materia() {
         return id_materia;
     }
 
-    public void setId_materia(int id_materia) {
+    public void setId_materia(String id_materia) {
         this.id_materia = id_materia;
     }
 
