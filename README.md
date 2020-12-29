@@ -1,24 +1,27 @@
-# Simple Vert.x REST CRUD API
+# Biblioteca 2A
+Este proyecto corresponde a la Biblioteca 2A de Java Avanzado. consiste en un abm de tablas utilizando Vert.x y JPA/Hibernate
 
-This project implements a simple CRUD using Vert.x and JPA/Hibernate
+## Compilador:
 
-## Building
-
-To build project:
+Para compilar el proyecto, ejecute en consola:
 
   ```
   mvn clean package
   ```
-## Packaging
+## Paquetes
 
-The application is packaged as a _fat jar_, using the 
+Esta aplicacion contienen el paquede como un  _fat jar_, usando el 
 [Maven Shade Plugin](https://maven.apache.org/plugins/maven-shade-plugin/).
 
-## Running
+## Ejecutando
 
-Once packaged, just launch the _fat jar_ as follows:
+Una vez compilado, simplemente inicie el  _fat jar_ de la siguiente manera:
 
 ```
-java -jar target/my-first-app-1.0-SNAPSHOT-fat.jar
+java -jar target/api-rest-jpa-1.0-SNAPSHOT-fat.jar
 ```
-Then, open a browser to http://localhost:8080.
+Luego, inicie el navegador en el local host http://localhost:8080.
+Allí se podrán visualizar los datos por el json siempre y cuando la BD se encuentra con datos en las tablas.
+
+
+_**Integrantes;** Andrea Hospital y Adrian Soa_
